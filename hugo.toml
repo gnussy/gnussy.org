@@ -32,12 +32,12 @@ name = "gnussy contributors"
     [[menu.main]]
         identifier = "blog"
         name = "blog"
-        url = "/projects/"
+        url = "/blog/"
         weight = 3
     [[menu.main]]
         identifier = "about"
         name = "about"
-        url = "/tuna/"
+        url = "/about/"
         weight = 4
 
 [taxonomies]
