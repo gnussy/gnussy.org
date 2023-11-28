@@ -1,0 +1,23 @@
+<title>{{ with .Title }}{{ . }} &ndash; {{end}}{{ .Site.Title }}</title>
+<meta name="title" content="{{ with .Title }}{{ . }} &ndash; {{end}}{{ .Site.Title }}"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+{{ if .Site.Params.noindex }}<meta name="robots" content="noindex" /> {{ end }}
+
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="icon" type="image/x-icon" href="/assets/gnussy.png">
+<!-- Google / Search Engine Tags -->
+<meta itemprop="image" content="{{ .Site.BaseURL }}assets/gnussy.png"/>
+<meta name="description" content="{{ .Description }}"/>
+<!-- Facebook Meta Tags -->
+<meta property="og:description" content="{{ .Description }}"/>
+<meta property="og:image" content="{{ .Site.BaseURL }}assets/gnussy.png"/>
+<meta property="og:title" content="{{ with .Title }}{{ . }} &ndash; {{end}}{{ .Site.Title }}"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="{{ .Permalink }}"/>
+<!-- Twitter Meta Tags -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta property="twitter:description" content="{{ .Description }}"/>
+<meta property="twitter:image" content="{{ .Site.BaseURL }}assets/gnussy.png"/>
+<meta property="twitter:title" content="{{ with .Title }}{{ . }} &ndash; {{end}}{{ .Site.Title }}"/>
+<meta property="twitter:url" content="{{ .Permalink }}"/>

@@ -1,0 +1,12 @@
+<nav>
+    <img class="gnussy-logo" width=100rem src="/assets/gnussy.png">
+    <div class="main-header">
+        gnussy.org
+        <p>
+            {{ $currentPage := . }}
+            {{ range .Site.Menus.main }}
+                <a class="nav-main-item{{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq ($currentPage.Permalink) (.URL | absLangURL)) }} active{{end}}" href="{{ .URL | absLangURL }}" title="{{ .Title }}">{{ .Name }}</a>
+            {{ end }}
+        </p>
+    </div>
+</nav>

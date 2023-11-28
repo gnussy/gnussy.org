@@ -1,0 +1,25 @@
+{{ define "main" }}
+<div class="title">
+    <div class="sub-title">
+        <p>
+        {{ .Title }} - {{ .Description }}
+        </p>
+    </div>
+</div>
+<div class="title">
+    <div class="sub-title">
+        <p>
+            {{ .Content }}
+        </p>
+        {{ range .Pages }}
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+        <div class="sub-sub-title">
+            <span class="date">
+                {{ .Date.Format "2006 January 2" }}
+            </span> - {{ .Description }}
+        </div>
+        <br>
+        {{ end }}
+    </div>
+</div>
+{{ end }}

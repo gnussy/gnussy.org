@@ -1,0 +1,10 @@
+name = "Tuna"
+license = "GLP3"
+licenselink = "https://github.com/mulling/tuna/blob/master/LICENSE"
+description = "Tuna theme"
+homepage = "http://mulling.github.io"
+min_version = "0.116.1"
+
+[author]
+    name = "mulling"
+    homepage = "github.com/mulling"

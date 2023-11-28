@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{- site.Language.Lang -}}">
+    <head>
+        {{- partial "head.html" . -}}
+    </head>
+    <body>
+        <div class="baseof">
+            <header class="baseof-header">
+                {{- partial "header.html" . -}}
+            </header>
+            <section class="baseof-main">
+                {{- block "main" . }}{{- end }}
+            </section>
+            <footer class="baseof-footer">
+                {{- partial "footer.html" . -}}
+            </footer>
+        </div>
+    </body>
+</html>

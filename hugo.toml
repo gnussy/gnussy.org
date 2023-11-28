@@ -1,0 +1,77 @@
+baseURL = 'https://gnussy.org'
+languageCode = 'en-us'
+title = 'gnussy.org'
+theme = 'tuna'
+
+[author]
+name = "gnussy contributors"
+
+[markup.highlight]
+    lineNoStart = 0
+    lineNos = true
+    tabWidth = 4
+    noClasses = false
+    codeFences = true
+
+[menu]
+    [[menu.main]]
+        identifier = "home"
+        name = "home"
+        url = "/"
+        weight = 1
+    [[menu.main]]
+        identifier = "software"
+        name = "software"
+        url = "/software/"
+        weight = 2
+    [[menu.main]]
+        identifier = "linux"
+        name = "linux"
+        url = "/linux/"
+        weight = 2
+    [[menu.main]]
+        identifier = "blog"
+        name = "blog"
+        url = "/projects/"
+        weight = 3
+    [[menu.main]]
+        identifier = "about"
+        name = "about"
+        url = "/tuna/"
+        weight = 4
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+series = "series"
+
+# For hugo >= 0.60.0, enable inline HTML
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup]
+    [markup.tableOfContents]
+        startLevel = 2
+        endLevel   = 3
+        ordered    = true
+
+[privacy]
+    [privacy.vimeo]
+        disabled = false
+        simple   = true
+    [privacy.twitter]
+        disabled  = false
+        enableDNT = true
+        simple    = true
+    [privacy.instagram]
+        disabled = false
+        simple   = true
+    [privacy.youtube]
+        disabled        = false
+        privacyEnhanced = true
+
+[services]
+    [services.instagram]
+        disableInlineCSS = true
+    [services.twitter]
+        disableInlineCSS = true
