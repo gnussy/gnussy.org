@@ -1,10 +1,14 @@
 ---
 author: "Daniel Boll"
-title: "AoC - Day 1"
+title: "AoC 2023"
 date: 2023-12-01T09:44:14-03:00
 description: "Using Elixir & OCaml"
 draft: false
 ---
+
+- [Day 1 - Elixir](#day-1-elixir)
+
+## Day 1 Elixir
 
 Here am I once again saving Christmas, duty's calling amirite?
 
@@ -60,5 +64,43 @@ defmodule Day1 do
       |> Kernel.+(acc) # And increment the reduce accumulator
     end)
   end
+end
+```
+
+Now to adapt for the second part I would only need to have a custom converter to handle "one" as 1
+
+```elixir
+defmodule Day1 do
+  @spec solution(String.t()) :: integer()
+  def solution(file) do
+    File.read!(file)
+    |> String.trim_trailing()
+    |> String.split("\n")
+    |> Enum.reduce(0, fn calibration, acc ->
+      # Now I handle more words
+      ~r/(\d|one|two|three|four|five|six|seven|eight|nine)/
+      |> Regex.scan(calibration)
+      |> List.flatten()
+      # And convert the number
+      |> (&(convert(List.first(&1)) <> convert(List.last(&1)))).()
+      |> String.to_integer()
+      |> Kernel.+(acc)
+    end)
+  end
+
+  # The base cases are "one" - "nine"
+  @spec convert(String.t()) :: String.t()
+  def convert("one"), do: "1"
+  def convert("two"), do: "2"
+  def convert("three"), do: "3"
+  def convert("four"), do: "4"
+  def convert("five"), do: "5"
+  def convert("six"), do: "6"
+  def convert("seven"), do: "7"
+  def convert("eight"), do: "8"
+  def convert("nine"), do: "9"
+
+  # Else just return the same string
+  def convert(number), do: number
 end
 ```

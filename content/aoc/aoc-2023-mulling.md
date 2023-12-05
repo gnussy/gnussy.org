@@ -2,7 +2,7 @@
 author: "Mulling"
 title: "AoC 2023 - Mulling"
 date: 2023-12-04T23:25:02-03:00
-description: "Haskell torture"
+description: "Haskell torture asjkasdjklasdjklafjkasjkld"
 draft: false
 ---
 

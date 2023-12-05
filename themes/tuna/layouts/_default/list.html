@@ -11,27 +11,35 @@
         <p>
             {{ .Content }}
         </p>
-        {{ range .Pages }}
-        <a href="{{ .Permalink }}" class="post-link">
-          <div class="post">
-            <div class="author-name">
-              [{{ .Params.author }}]
+        <div class="posts">
+          {{ range .Pages }}
+          <a href="{{ .Permalink }}" class="post-link">
+            <div class="post">
+              <div class="author-name">
+                [{{ .Params.author }}]
+              </div>
+              <div class="headline">
+                <span>{{ .Title }}</span> :: {{ .Description }}
+              </div>
+              <div class="sub-sub-title">
+                <span class="date">
+                  {{ .Date.Format "2006 January 2" }}
+                </span>
+              </div>
             </div>
-            <div class="headline">
-              <span>{{ .Title }}</span> :: {{ .Description }}
-            </div>
-            <div class="sub-sub-title">
-              <span class="date">
-                {{ .Date.Format "2006 January 2" }}
-              </span>
-            </div>
-          </div>
-        </a>
-        {{ end }}
+          </a>
+          {{ end }}
+        </div>
     </div>
 </div>
 
 <style>
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 .post-link {
   text-decoration: none;
 }
@@ -51,6 +59,13 @@
   max-width: 20rem;
 
   transition: background 0.2s ease;
+
+  width: 20rem;
+
+  /* line-wrap ellipsis */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .post:hover {

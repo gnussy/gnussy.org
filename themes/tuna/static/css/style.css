@@ -3,6 +3,15 @@
     src:url("/fonts/consolas.ttf");
 }
 
+/* START RESET */
+html, body {
+  height: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+/* END RESET */
+
 * {
     font-size: 12pt;
     font-family: Consolas;
@@ -12,45 +21,12 @@ a:active  { color: #000000 }
 a:link    { color: #000000 }
 a:visited { color: #000000 }
 
-.main-header {
-    margin-left: 1rem;
-}
-
 .home-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-
-body {
-    -webkit-appearance: none;
-    background-color: #FFFFFF;
-    color: #000000;
-    min-width: 20rem;
-    max-width: 90%;
-    margin: auto;
-    padding: .5rem;
-}
-
-.chroma {
-    overflow-y: hidden;
-}
-
-nav {
-    display: flex;
-    align-items: center;
-}
-
-blockquote {
-   font-style: italic;
-}
-
-span.quote {
-    display: block;
-    text-align: right;
-    margin-right: 4rem
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .footer {

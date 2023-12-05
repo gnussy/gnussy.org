@@ -1,7 +1,7 @@
-<nav>
+<nav class="nav">
     <img class="gnussy-logo" width=100rem src="/assets/st-gnussy.png">
     <div class="main-header">
-        gnussy.org
+        <span>gnussy.org</span>
         <p>
             {{ $currentPage := . }}
             {{ range .Site.Menus.main }}
@@ -10,3 +10,26 @@
         </p>
     </div>
 </nav>
+
+<style>
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 1rem;
+  text-align: left;
+}
+
+.main-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-left: 1rem;
+}
+
+.main-header p {
+  align-self: flex-end;
+}
+</style>
