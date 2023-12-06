@@ -1,15 +1,16 @@
 ---
 author: "Mulling"
-title: "AoC 2023 - Mulling"
+title: "AoC 2023"
 date: 2023-12-04T23:25:02-03:00
-description: "Haskell torture"
+description: "Haskell type torture"
 draft: false
 ---
 
 - [Day 1](#day-1)
+- [Day 2](#day-2)
 
-# Day 1
-This problem kinda stinks, plus I'm still very rusty on the ol' Haskell.
+## Day 1
+This problem kinda stinks, plus I'm still very rusty with the ol' Haskell.
 
 ```haskell
 import Control.Applicative
@@ -37,3 +38,23 @@ main = interact (show . sum . map (liftA2 (\ x y -> read [x, y] :: Int) head las
 
 It's quite funny that the final binary has 14Mb...
 
+## Day 2
+### Part 1
+Overall the solution is a convoluted mess, only because "normal" strings don't have `splitOn` and we have to resort to using `Data.Text`. Still getting the hang of Applicatives again.
+
+```haskell
+{-# LANGUAGE OverloadedStrings #-}
+
+import qualified Data.Text as T
+
+main :: IO ()
+main = interact (show . sum . map (valid . ([(";"`T.splitOn`)]<*>) . T.splitOn ":" . T.pack). lines)
+  where
+    valid [[game], sets] | all (foldr (\xs acc -> acc && valid' (T.words xs)) True) ([(","`T.splitOn`)] <*> sets) = (read . last . words) (T.unpack game) :: Int
+    valid _ = 0
+    valid' [num, color] | color == "red"   = parse num <= 12
+                        | color == "green" = parse num <= 13
+                        | color == "blue"  = parse num <= 14
+    valid' _ = False
+    parse xs = read (T.unpack xs) :: Int
+```
