@@ -43,6 +43,7 @@ a:visited { color: #000000 }
 .chroma {
     color: #D6C9A4;
     background-color: #1D2021;
+    overflow-y: hidden;
 }
 
 .chroma .lnlinks {
