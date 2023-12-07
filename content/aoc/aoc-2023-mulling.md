@@ -58,3 +58,38 @@ main = interact (show . sum . map (valid . ([(";"`T.splitOn`)]<*>) . T.splitOn "
     valid' _ = False
     parse xs = read (T.unpack xs) :: Int
 ```
+### Part 2
+Another round of type tetris.
+
+```haskell
+{-# LANGUAGE OverloadedStrings #-}
+
+import qualified Data.Text as T
+
+main :: IO ()
+main = interact (show . sum. map (power . tail . T.splitOn ":" . T.pack). lines)
+  where
+    power sets = go [0, 0, 0] $ concat ([T.words] <*> sets)
+    go :: [Int] -> [T.Text] -> Int
+    go [r, g, b] (num:color:xs) | T.isPrefixOf "red"   color = go [max (parse num) r, g, b] xs
+                                | T.isPrefixOf "green" color = go [r, max (parse num) g, b] xs
+                                | T.isPrefixOf "blue"  color = go [r, g, max (parse num) b] xs
+    go acc _ = product acc
+    parse xs = read (T.unpack xs) :: Int
+```
+
+And without Data.Text things get way simpler.
+
+```haskell
+import Data.List
+
+main :: IO ()
+main = interact (show . sum . ([power . tail . dropWhile (/=':')] <*>) . lines)
+  where
+    power :: String -> Int
+    power = go [0,0,0] . words
+    go [r, g, b] (num:color:xs) | isPrefixOf "red"   color = go [max (read num) r, g, b] xs
+                                | isPrefixOf "green" color = go [r, max (read num) g, b] xs
+                                | isPrefixOf "blue"  color = go [r, g, max (read num) b] xs
+    go acc _ = product acc
+```
