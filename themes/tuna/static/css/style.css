@@ -5,7 +5,7 @@
 
 /* START RESET */
 html, body {
-  height: 100%;
+    height: 100%;
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -36,13 +36,13 @@ a:visited { color: #000000 }
 }
 
 .bg {
-    color: #D6C9A4;
-    background-color: #1D2021;
+    color: #1D1F21;
+    background-color: #F1F1F1;
 }
 
 .chroma {
-    color: #D6C9A4;
-    background-color: #1D2021;
+    color: #1D1F21;
+    background-color: #F1F1F1;
     overflow-y: hidden;
 }
 
@@ -72,12 +72,12 @@ a:visited { color: #000000 }
     user-select: none;
     margin-right: 0.4rem;
     padding: 0 0.4rem 0 0.4rem;
-    color: #756B61
+    color: #969896
 }
 
 .chroma .ln {
     -webkit-user-select: none;
-    color: #756B61
+    color: #969896
     margin-right: 0.4rem;
     padding: 0 0.4rem 0 0.4rem;
     user-select: none;
@@ -85,25 +85,25 @@ a:visited { color: #000000 }
 }
 
 .hl {
-    background-color: #ffffcc
+    background-color: #FFFFCC
 }
 
 .bp  { }
-.c   { color: #756B61 }
-.c1  { color: #756B61 }
-.ch  { color: #756B61 }
+.c   { color: #969896 }
+.c1  { color: #969896 }
+.ch  { color: #969896 }
 .cl  { }
-.cm  { color: #756B61 }
-.cp  { color: #EDB32D }
-.cpf { color: #EDB32D }
-.cs  { color: #756B61 }
-.dl  { color: #88B625 }
+.cm  { color: #969896 }
+.cp  { color: #FBA922 }
+.cpf { color: #FBA922 }
+.cs  { color: #969896 }
+.dl  { color: #198844 }
 .err { }
 .fm  { }
 .g   { }
 .gd  { color: #1D2021 }
-.ge  { color: #83a598 }
-.gh  { color: #b8bb26 }
+.ge  { color: #3971ED }
+.gh  { color: #B8BB26 }
 .gi  { color: #1D2021 }
 .gl  { }
 .go  { color: #504945 }
@@ -111,55 +111,55 @@ a:visited { color: #000000 }
 .gr  { }
 .gs  { }
 .gt  { }
-.gu  { color: #b8bb26 }
-.il  { color: #D6C9A4 }
-.k   { color: #D66E12 }
-.kc  { color: #D66E12 }
-.kd  { color: #D66E12 }
-.kn  { color: #D66E12 }
-.kp  { color: #D66E12 }
-.kr  { color: #D66E12 }
-.kt  { color: #83A598 }
+.gu  { color: #B8BB26 }
+.il  { color: #1D1F21 }
+.k   { color: #CC342B }
+.kc  { color: #CC342B }
+.kd  { color: #CC342B }
+.kn  { color: #CC342B }
+.kp  { color: #CC342B }
+.kr  { color: #CC342B }
+.kt  { color: #3971ED }
 .l   { }
 .ld  { }
 .lin e { display: flex; }
-.m   { color: #D6C9A4 }
-.mb  { color: #D6C9A4 }
-.mf  { color: #D6C9A4 }
-.mh  { color: #D6C9A4 }
-.mi  { color: #D6C9A4 }
-.mo  { color: #D6C9A4 }
+.m   { color: #1D1F21 }
+.mb  { color: #1D1F21 }
+.mf  { color: #1D1F21 }
+.mh  { color: #1D1F21 }
+.mi  { color: #1D1F21 }
+.mo  { color: #1D1F21 }
 .n   { }
-.na  { color: #D66E12 }
-.nb  { color: #D3869B }
+.na  { color: #CC342B }
+.nb  { color: #A36AC7 }
 .nc  { }
 .nd  { }
 .ne  { color: #000 }
-.nf  { color: #EDB32D }
-.ni  { color: #EDB32D }
-.nl  { color: #fb4934 }
+.nf  { color: #FBA922 }
+.ni  { color: #FBA922 }
+.nl  { color: #CC342B }
 .nn  { }
-.no  { color: #d3869b }
-.nt  { color: #fb4934 }
+.no  { color: #A36AC7 }
+.nt  { color: #CC342B }
 .nv  { }
 .nx  { }
-.o   { color: #D6C9A4 }
-.ow  { color: #D6C9A4 }
+.o   { color: #1D1F21 }
+.ow  { color: #1D1F21 }
 .p   { }
 .py  { }
-.s   { color: #88B625 }
-.s1  { color: #88B625 }
-.s2  { color: #88B625 }
-.sa  { color: #88B625 }
-.sb  { color: #88B625 }
-.sc  { color: #88B625 }
-.sd  { color: #88B625 }
-.se  { color: #88B625 }
-.sh  { color: #88B625 }
-.si  { color: #88B625 }
-.sr  { color: #88B625 }
-.ss  { color: #83a598 }
-.sx  { color: #88B625 }
+.s   { color: #198844 }
+.s1  { color: #198844 }
+.s2  { color: #198844 }
+.sa  { color: #198844 }
+.sb  { color: #198844 }
+.sc  { color: #198844 }
+.sd  { color: #198844 }
+.se  { color: #198844 }
+.sh  { color: #198844 }
+.si  { color: #198844 }
+.sr  { color: #198844 }
+.ss  { color: #3971ED }
+.sx  { color: #198844 }
 .vc  { }
 .vg  { }
 .vi  { }
