@@ -8,6 +8,7 @@ draft: false
 
 - [Day 1](#day-1)
 - [Day 2](#day-2)
+- [Day 3](#day-3)
 
 ## Day 1
 This problem kinda stinks, plus I'm still very rusty with the ol' Haskell.
@@ -92,4 +93,40 @@ main = interact (show . sum . ([power . tail . dropWhile (/=':')] <*>) . lines)
                                 | isPrefixOf "green" color = go [r, max (read num) g, b] xs
                                 | isPrefixOf "blue"  color = go [r, g, max (read num) b] xs
     go acc _ = product acc
+```
+
+## Day 3
+### Part 1
+Not looking forward to part 2.
+
+```haskell
+import Control.Applicative
+import Data.Char
+
+zipper :: Maybe [Bool] -> [[Char]] -> [([Char], [Bool])]
+zipper _ [] = []
+zipper (Just prev) [xs] = [(xs, prev)]
+zipper (Just prev) (xs : xss@(next : _)) = (xs, zipWith (||) prev (getSymbols <$> next)) : zipper (Just $ getSymbols <$> xs) xss
+zipper Nothing (xs : xss@(next : _)) = (xs, getSymbols <$> next) : zipper (Just $ getSymbols <$> xs) xss
+zipper Nothing _ = []
+
+go :: Bool -> [Char] -> [Char] -> [Bool] -> [[Char]]
+go True acc [] [] = [acc]
+go _ _ [] [] = []
+go emit acc (c : cs) (p : ps)
+  | isDigit c = go (emit || p) (acc <> [c]) cs ps
+  | emit || p || c /= '.' = case acc of
+      [] -> go (p || c /= '.') [] cs ps
+      _ -> acc : go (p || c /= '.') [] cs ps
+  | otherwise = go False [] cs ps
+go _ _ _ _ = []
+
+getSymbols :: Char -> Bool
+getSymbols = liftA2 (&&) (not . isDigit) (/= '.')
+
+tags :: ([Char], [Bool]) -> [[Char]]
+tags (xs, syms) = go False [] xs syms
+
+main :: IO ()
+main = interact (show . sum . map (\xs -> read xs :: Int) . concatMap tags . zipper Nothing . lines)
 ```
