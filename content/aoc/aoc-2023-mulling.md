@@ -9,6 +9,7 @@ draft: false
 - [Day 1](#day-1)
 - [Day 2](#day-2)
 - [Day 3](#day-3)
+- [Day 4](#day-4)
 
 ## Day 1
 This problem kinda stinks, plus I'm still very rusty with the ol' Haskell.
@@ -129,4 +130,41 @@ tags (xs, syms) = go False [] xs syms
 
 main :: IO ()
 main = interact (show . sum . map (\xs -> read xs :: Int) . concatMap tags . zipper Nothing . lines)
+```
+
+### Part 2
+```haskell
+-- TODO:
+```
+
+## Day 4
+This was a fun day of mostly figuring out Haskell's standard library.
+
+### Part 1
+```haskell
+import Control.Applicative
+import Data.Set qualified as S
+
+main :: IO ()
+main = interact (show . sum . map ((2 ^) . pred) . filter (> 0) . (S.size . liftA2 S.intersection head last . (S.fromList . ((\xs -> read xs :: Int) <$>) . words <$>) . split (== '|') . tail . dropWhile (/= ':') <$>) . lines)
+  where
+    split fn xs = case break fn xs of
+      (a, _ : b) -> a : split fn b
+      (a, _) -> [a]
+```
+With a little bit of massagin', we can make the final solution 3 loc, tho, It does run a little slower. My guess is that `Data.Set.intersection` much faster than `Data.List.intersect`.
+```haskell
+import Data.List
+
+main :: IO ()
+main = interact (show . sum . map ((2 ^) . pred) . filter (> 0) . (length . uncurry intersect . (\(a, b) -> (read <$> words a, read <$> words (tail b)) :: ([Int], [Int])) . span (/= '|') . tail . dropWhile (/= ':') <$>) . lines)
+```
+
+### Part 2
+This took some helping to run in a decent time...
+```haskell
+import Data.List
+
+main :: IO ()
+main = interact (show . sum . foldr ((\i acc -> 1 + sum (take i acc) : acc) . (length . uncurry intersect . \(a, b) -> (read <$> words a, read <$> words (tail b)) :: ([Int], [Int])) . span (/= '|') . tail . dropWhile (/= ':')) [] . lines)
 ```
