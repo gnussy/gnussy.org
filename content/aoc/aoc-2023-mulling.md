@@ -10,6 +10,7 @@ draft: false
 - [Day 2](#day-2)
 - [Day 3](#day-3)
 - [Day 4](#day-4)
+- [Day 5](#day-5)
 
 ## Day 1
 This problem kinda stinks, plus I'm still very rusty with the ol' Haskell.
@@ -146,7 +147,22 @@ import Control.Applicative
 import Data.Set qualified as S
 
 main :: IO ()
-main = interact (show . sum . map ((2 ^) . pred) . filter (> 0) . (S.size . liftA2 S.intersection head last . (S.fromList . ((\xs -> read xs :: Int) <$>) . words <$>) . split (== '|') . tail . dropWhile (/= ':') <$>) . lines)
+main =
+  interact
+    ( show
+        . sum
+        . map ((2 ^) . pred)
+        . filter (> 0)
+        . ( S.size
+              . liftA2 S.intersection head last
+              . (S.fromList . ((\xs -> read xs :: Int) <$>) . words <$>)
+              . split (== '|')
+              . tail
+              . dropWhile (/= ':')
+              <$>
+          )
+        . lines
+    )
   where
     split fn xs = case break fn xs of
       (a, _ : b) -> a : split fn b
