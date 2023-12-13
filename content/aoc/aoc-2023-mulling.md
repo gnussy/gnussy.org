@@ -157,7 +157,27 @@ With a little bit of massagin', we can make the final solution 3 loc, tho, It do
 import Data.List
 
 main :: IO ()
-main = interact (show . sum . map ((2 ^) . pred) . filter (> 0) . (length . uncurry intersect . (\(a, b) -> (read <$> words a, read <$> words (tail b)) :: ([Int], [Int])) . span (/= '|') . tail . dropWhile (/= ':') <$>) . lines)
+main =
+  interact
+    ( show
+        . sum
+        . map ((2 ^) . pred)
+        . filter (> 0)
+        . ( length
+              . uncurry intersect
+              . ( \(a, b) ->
+                    ( read <$> words a,
+                      read <$> words (tail b)
+                    ) ::
+                      ([Int], [Int])
+                )
+              . span (/= '|')
+              . tail
+              . dropWhile (/= ':')
+              <$>
+          )
+        . lines
+    )
 ```
 
 ### Part 2
@@ -166,5 +186,124 @@ This took some helping to run in a decent time...
 import Data.List
 
 main :: IO ()
-main = interact (show . sum . foldr ((\i acc -> 1 + sum (take i acc) : acc) . (length . uncurry intersect . \(a, b) -> (read <$> words a, read <$> words (tail b)) :: ([Int], [Int])) . span (/= '|') . tail . dropWhile (/= ':')) [] . lines)
+main =
+  interact
+    ( show
+        . sum
+        . foldr
+          ( (\i acc -> 1 + sum (take i acc) : acc)
+              . ( length . uncurry intersect . \(a, b) ->
+                    ( read
+                        <$> words a,
+                      read <$> words (tail b)
+                    ) ::
+                      ([Int], [Int])
+                )
+              . span (/= '|')
+              . tail
+              . dropWhile (/= ':')
+          )
+          []
+        . lines
+    )
+```
+
+## Day 5
+### Part 1
+Pretty boring day, 90% of this is parsing -- and preprocessing for part 2. Instead of using Parsec, I've made my own Applicative parser.
+
+```haskell
+{-# OPTIONS_GHC -Wall -Wextra #-}
+
+import Control.Applicative
+import Data.Char
+
+data R a = R (a, String) | E deriving (Show)
+
+newtype P a = P (String -> R a)
+
+parse :: P a -> String -> R a
+parse (P a) = a
+
+instance Functor R where
+  fmap _ E = E
+  fmap f (R (a, xs)) = R (f a, xs)
+
+instance Functor P where
+  fmap f p = P $ fmap f . parse p
+
+instance Applicative P where
+  pure a = P $ \xs -> R (a, xs)
+  p' <*> p'' = P $ \xs -> f <$> parse p' $ xs
+    where
+      f (R (a, xs)) = parse (a <$> p'') xs
+      f E = E
+
+instance Alternative P where
+  empty = P $ const E
+  p' <|> p'' = P $ \xs -> f xs <$> parse p' $ xs
+    where
+      f xs E = parse p'' xs
+      f _ (R (a, xs)) = R (a, xs)
+
+char :: (Char -> Bool) -> P Char
+char f = P f'
+  where
+    f' (x : xs) | f x = R (x, xs)
+    f' _ = E
+
+token :: P a -> P a
+token p = w *> p <* w
+  where
+    w = many . char $ isSpace
+
+string :: String -> P String
+string = foldr (\x -> (<*>) $ (:) <$> char (== x)) $ pure []
+
+numbers :: P [Int]
+numbers = token $ many $ read <$> (some . char) isDigit <* char isSpace
+
+identifier :: String -> P String
+identifier = token . string
+
+newtype Range = Range (Int, Int, Int) deriving (Show)
+
+seeds :: P [Int]
+seeds = identifier "seeds:" *> numbers
+
+ranges :: String -> P [Range]
+ranges xs = go <$> (identifier xs *> numbers)
+  where
+    go (t : f : r : xs') = Range (t, f, r) : go xs'
+    go _ = []
+
+parser :: P ([Int], [[Range]])
+parser =
+  join
+    <$> seeds
+    <*> ranges "seed-to-soil map:"
+    <*> ranges "soil-to-fertilizer map:"
+    <*> ranges "fertilizer-to-water map:"
+    <*> ranges "water-to-light map:"
+    <*> ranges "light-to-temperature map:"
+    <*> ranges "temperature-to-humidity map:"
+    <*> ranges "humidity-to-location map:"
+  where
+    join a b c d e f g h = (a, [b, c, d, e, f, g, h]) -- Is there a better way to do this ???
+
+mapping :: Int -> [Range] -> Int
+mapping s ((Range (t, f, r)) : rs)
+  | s >= f && s <= f + r - 1 = t + (s - f)
+  | otherwise = mapping s rs
+mapping s [] = s
+
+main :: IO ()
+main = interact (show . minimum . liftA2 run fst snd . unpack . parse parser)
+  where
+    unpack (R (r, _)) = r
+    unpack _ = undefined
+    run (x : xs) rs = next x rs : run xs rs
+    run _ _ = []
+    next s (r : rs) = next (mapping s r) rs
+    next s _ = s
 ```
